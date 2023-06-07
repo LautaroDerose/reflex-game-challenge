@@ -1,9 +1,10 @@
-import React, { createContext, useContext, useState } from 'react'
-import { GameContext } from '../App';
+import React, { useContext } from 'react'
+import { GameContext } from "../context/GameProvider";
 
 
 const GameScreenHard = () => {
-    const { status, timer, position, handleClickMiddle, clicked, randomPositions } = useContext(GameContext);
+    const { status, position, handleClickMiddle, hardFigureColor, randomColors, randomPositions } = useContext(GameContext);
+    
     return (
         <div style={{display: 'flex', justifyContent: 'center', alignItems:'center', padding:'40px', height: '80vh', width: '90vh',backgroundColor: 'gray'}}>
         
@@ -20,11 +21,14 @@ const GameScreenHard = () => {
                             // transform: `scale(${1 - score * 0.05})`,
                             position: "absolute", 
                             top: `${position[0]}%`,
-                            backgroundColor: `red`, 
-                            left:`${position[1]}%` }} 
+                            left:`${position[1]}%` ,
+                            backgroundColor: hardFigureColor, 
+                            transition: "background-color 1s",
+                        }} 
                         />
 
-                        {clicked &&  randomPositions.map((position, index) => (
+
+                        {randomPositions.map((position, index) => (
                             <figure
                             key={index}
                             style={{
@@ -32,7 +36,8 @@ const GameScreenHard = () => {
                                 height: `25px`,
                                 position: "absolute",
                                 top: position.top,
-                                left: position.left
+                                left: position.left,
+                                backgroundColor:randomColors[index],
                             }}
                             />
                         ))}

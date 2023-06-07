@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react'
-import { GameContext } from '../App';
+import { GameContext } from "../context/GameProvider";
+
 
 const GameScreen = () => {
     const { status, score, position, handleClickMiddle, TARGET_SIZE } = useContext(GameContext);
