@@ -3,7 +3,7 @@ import { GameContext } from "../context/GameProvider";
 
 
 const GameScreenMiddle = () => {
-    const { status, position, handleClickMiddle, randomPositions, figureColor, } = useContext(GameContext);
+    const { status, position, handleClickLevels, randomPositions, figureColor, } = useContext(GameContext);
 
     
 
@@ -15,7 +15,7 @@ const GameScreenMiddle = () => {
                 { status === "playing" && (
                     <>
                         <figure 
-                        onClick={handleClickMiddle} 
+                        onClick={handleClickLevels} 
                         style={{
                             width: `25px`, 
                             height: `25px`,

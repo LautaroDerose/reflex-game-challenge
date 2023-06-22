@@ -2,11 +2,11 @@
 // import { GameContext } from "../context/GameProvider";
 
 // const FigureHero = () => {
-//   const {position, handleClickMiddle} = useContext(GameContext)
+//   const {position, handleClickLevels} = useContext(GameContext)
 //   return (
 //     <>
 //       <figure 
-//         onClick={handleClickMiddle} 
+//         onClick={handleClickLevels} 
 //         style={{
 //             width: `25px`, 
 //             height: `25px`,

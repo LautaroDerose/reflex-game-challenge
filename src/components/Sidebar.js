@@ -66,6 +66,11 @@ const Sidebar = () => {
           >
             Dificil
           </button>
+          </div>
+          <div>
+            {
+              difficulty === 'hard' ? <p className='text-gray-800'> El boton a clickear se vera al inicio siempre en cyan</p> : " "
+            }
 
           </div>
           <div>

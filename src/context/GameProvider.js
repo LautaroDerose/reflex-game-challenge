@@ -13,7 +13,8 @@ export function GameProvider ({children})  {
   const [clicked, setClicked] = useState(false);
 
   const [figureColor, setFigureColor] = useState('yellow');
-  const [hardFigureColor, setHardFigureColor] = useState('cyan');
+  const [prevColorHard, setPrevColorHard] = useState('');
+  const [figureColorHard, setFigureColorHard] = useState('cyan');
  
 
   const [randomPositions, setRandomPositions] = useState(() =>
@@ -41,11 +42,11 @@ export function GameProvider ({children})  {
     clicked,
     score,
     handleClick,
-    handleClickMiddle,
+    handleClickLevels,
     figureColor,
     setFigureColor,
-    hardFigureColor,
-    setHardFigureColor,
+    figureColorHard,
+    setFigureColorHard,
     randomColors
     
     // getRandomColor
@@ -66,53 +67,81 @@ export function GameProvider ({children})  {
     ]);
   }
  
-  function handleClickMiddle() {
-    setScore((prevScore) => prevScore + 1);   
-    
-    if (score === 9) {
-      setStatus("finished");
-      setScore(0);
-    }
+  //version con color previo
+  function handleClickLevels() {
+    const handleLevelEffect = () => {
+      const randomIndex = Math.floor(Math.random() * randomColors.length);
+      const newColor = randomColors[randomIndex];
+      if (newColor !== prevColorHard){
+        setFigureColorHard(newColor)
+        setPrevColorHard(newColor)
+      }
+    };
+
+    handleClick()
     setClicked(true)
     
     setRandomPositions(() =>
-    Array.from(Array(10)).map(() => ({
-      top: `${Math.floor(Math.random() * 100)}%`,
-      left: `${Math.floor(Math.random() * 100)}%`,
-    }))
+      Array.from(Array(10)).map(() => ({
+        top: `${Math.floor(Math.random() * 100)}%`,
+        left: `${Math.floor(Math.random() * 100)}%`,
+      }))
     );
     
-    setPosition([
-      Math.floor(Math.random() * 100),
-      Math.floor(Math.random() * 100),
-    ]);
-
+    //Funcion para Dificultad Media
     setFigureColor('yellow');
     setTimeout(() => {
       setFigureColor('white')
     }, 300);
     
+    handleLevelEffect();
 
-    setHardFigureColor('cyan');
-    setTimeout(() => {
-      setHardFigureColor('yellow')//lograr que este color este asociado con randomColors
-    }, 300);
-    
   }
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setFigureColor('white')
-    }, 300);
-    return () => clearTimeout(timer)
-  }, [])
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setHardFigureColor('yellow')
-    }, 300);
-    return () => clearTimeout(timer)
-  }, [])
+  // function handleClickLevels() {
+  //   handleClick()
+  //   setClicked(true)
+    
+  //   setRandomPositions(() =>
+  //   Array.from(Array(10)).map(() => ({
+  //     top: `${Math.floor(Math.random() * 100)}%`,
+  //     left: `${Math.floor(Math.random() * 100)}%`,
+  //   }))
+  //   );
+    
+  //   //Funcion para Dificultad Media
+  //   setFigureColor('yellow');
+  //   setTimeout(() => {
+  //     setFigureColor('white')
+  //   }, 300);
+    
+  //   //Funcion para Dificultad Dificil
+  //   // setfigureColorHard('cyan');
+    
+  //   // setTimeout(() => {
+  //   //   const randomIndex = Math.floor(Math.random() * randomColors.length);
+  //   //   setFigureColorHard(randomColors[randomIndex])
+  //   // }, 300);
+    
+  //   useEffect(() => {
+  //     const randomIndex = Math.floor(Math.random() * randomColors.length);
+  //     const newColor = randomColors[randomIndex];
+  //     if (newColor !== prevColorHard){
+  //       setFigureColorHard(newColor)
+  //       setPrevColorHard(newColor)
+  //     }
+  //   },[randomColors, prevColorHard])
+
+
+  // }
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setFigureColor('white')
+  //   }, 300);
+  //   return () => clearTimeout(timer)
+  // }, [figureColor])
   
   useEffect(() => {
     setRandomColors(randomPositions.map(() => getRandomColor()));
@@ -121,16 +150,14 @@ export function GameProvider ({children})  {
  
   useEffect(() => {
     let interval;
-    
-    if (status === "playing") {      
-      interval = setInterval(() => { setTimer((timer) => timer + 1)}, 100);
-      setFigureColor('yellow')
-      setHardFigureColor('cyan')
-    }else if(status === "initial") {
-      setTimer(0)
-      setScore(0)
-    }
-
+      if (status === "playing") {      
+        interval = setInterval(() => { setTimer((timer) => timer + 1)}, 100);
+        setFigureColor('yellow')
+        // setfigureColorHard('cyan')
+      }else if(status === "initial") {
+        setTimer(0)
+        setScore(0)
+      }
     return () => clearInterval(interval);
   }, [status]);
 

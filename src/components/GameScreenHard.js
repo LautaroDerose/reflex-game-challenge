@@ -3,7 +3,7 @@ import { GameContext } from "../context/GameProvider";
 
 
 const GameScreenHard = () => {
-    const { status, position, handleClickMiddle, hardFigureColor, randomColors, randomPositions } = useContext(GameContext);
+    const { status, position, handleClickLevels, figureColorHard, randomColors, randomPositions } = useContext(GameContext);
     
     return (
         <div style={{display: 'flex', justifyContent: 'center', alignItems:'center', padding:'40px', height: '80vh', width: '90vh',backgroundColor: 'gray'}}>
@@ -14,26 +14,26 @@ const GameScreenHard = () => {
                 status === "playing" && (
                     <>
                         <figure 
-                        onClick={handleClickMiddle} 
+                        onClick={handleClickLevels} 
                         style={{
-                            width: `25px`, 
-                            height: `25px`,
+                            width: `50px`, 
+                            height: `50px`,
                             // transform: `scale(${1 - score * 0.05})`,
                             position: "absolute", 
                             top: `${position[0]}%`,
                             left:`${position[1]}%` ,
-                            backgroundColor: hardFigureColor, 
+                            backgroundColor: figureColorHard, 
                             transition: "background-color 1s",
                         }} 
                         />
 
 
-                        {randomPositions.map((position, index) => (
+                        {/* {randomPositions.map((position, index) => (
                             <figure
                             key={index}
                             style={{
-                                width: `25px`,
-                                height: `25px`,
+                                width: `50px`,
+                                height: `50px`,
                                 position: "absolute",
                                 top: position.top,
                                 left: position.left,
@@ -41,7 +41,7 @@ const GameScreenHard = () => {
                             }}
                             />
                         ))}
-                        
+                         */}
                     </>
                 )
                 }

@@ -3,7 +3,7 @@ import { GameContext } from "../context/GameProvider";
 
 
 const GameScreen = () => {
-    const { status, score, position, handleClickMiddle, TARGET_SIZE } = useContext(GameContext);
+    const { status, score, position, handleClickLevels, TARGET_SIZE } = useContext(GameContext);
   return (
    
       <div style={{display: 'flex', justifyContent: 'center', alignItems:'center', padding:'40px', height: '80vh', width: '90vh',backgroundColor: 'gray'}}>
@@ -13,7 +13,7 @@ const GameScreen = () => {
             {
             status === "playing" && (
                 <figure 
-                onClick={handleClickMiddle} 
+                onClick={handleClickLevels} 
                 style={{
                     // width: TARGET_SIZE - score *4, 
                     // height: TARGET_SIZE - score *4,
